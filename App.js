@@ -46,12 +46,16 @@ export default function App() {
     //TODO check if the party exists or not by pulling a list from the database
 
     db.collection("Parties").doc(partyNum).set({
-      GameStatus: 'setup',
+      Configuration: {
+        timer: false
+      },
       CircleMiddle: [],
-      CircleRadius: [],
-    )}
+      circleRadius: 15,
+
+    })
     .then(function(party) {
       console.log([party].id)
+      this.setState({partyId: [party].id})
     })
     .catch(function(error) {
       console.error("Error adding document: ", error);
