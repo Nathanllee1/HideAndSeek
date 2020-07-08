@@ -1,4 +1,6 @@
 /* Fixing a bug with firebase and react native */
+
+/*
 import { decode, encode } from 'base-64'
 global.crypto = require("@firebase/firestore");
 global.crypto.getRandomValues = byteArray => { for (let i = 0; i < byteArray.length; i++) { byteArray[i] = Math.floor(256 * Math.random()); } }
@@ -6,7 +8,7 @@ global.crypto.getRandomValues = byteArray => { for (let i = 0; i < byteArray.len
 if (!global.btoa) { global.btoa = encode; }
 
 if (!global.atob) { global.atob = decode; }
-
+*/
 //The app
 
 import React, {Component} from 'react';
@@ -15,11 +17,16 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 //Gesture stuff
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
+const Stack = createStackNavigator();
 
 //firebase
 import firebase from 'firebase';
 import 'firebase/firestore';
+
+//Modules
+import Home from "./components/home"
 
 var config = {
   apiKey : 'AIzaSyDg7kvCDZ7x_gkQmAIHxiOO8LTbsnjRnWI',
@@ -37,7 +44,7 @@ export default function App() {
     partyId: '',
   }
 
-  function createParty() {
+  createParty = () => {
     console.log('Creating Party')
     firebase.initializeApp(config);
     db = firebase.firestore()
@@ -63,29 +70,19 @@ export default function App() {
 
   }
 
-  function joinParty() {
+  joinParty = () => {
     console.log('Joining Party')
   }
 
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <Button onPress={createParty} title="Create Party"/>
-        <Button style={styles.button} onPress={joinParty} title="Join Party"/>
-      </View>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} createParty={createParty}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 
-  button : {
-    marginBottom: 20,
-  }
 });
