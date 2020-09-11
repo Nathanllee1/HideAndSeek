@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default function home() {
+export default function home(props) {
   return (
     <View style={styles.container}>
-      <Button onPress={createParty} title="Create Party"/>
-      <Button style={styles.button} onPress={joinParty} title="Join Party"/>
+      <Button onPress={props.createParty} title="Create Party"/>
+      <Button style={styles.button} onPress={props.joinParty} title="Join Party"/>
     </View>
   )
 }

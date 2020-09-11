@@ -36,6 +36,7 @@ var config = {
 
 
 var db;
+firebase.initializeApp(config);
 
 export default function App() {
 
@@ -44,7 +45,7 @@ export default function App() {
     partyId: '',
   }
 
-  createParty = () => {
+  var createParty = () => {
     console.log('Creating Party')
     firebase.initializeApp(config);
     db = firebase.firestore()
@@ -70,19 +71,26 @@ export default function App() {
 
   }
 
-  joinParty = () => {
+  var joinParty = () => {
     console.log('Joining Party')
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} createParty={createParty}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Home createParty={createParty} joinParty={joinParty}></Home>
   );
 }
 
 const styles = StyleSheet.create({
 
 });
+
+
+/*
+
+<NavigationContainer>
+  <Stack.Navigator>
+    <Stack.Screen name="Home" component={Home} createParty={createParty}/>
+  </Stack.Navigator>
+</NavigationContainer>
+
+*/
